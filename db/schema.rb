@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180725033702) do
+ActiveRecord::Schema.define(version: 20180725122238) do
 
   create_table "service_histories", force: :cascade do |t|
     t.boolean "status"
@@ -29,6 +29,8 @@ ActiveRecord::Schema.define(version: 20180725033702) do
     t.text "check_script"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "current_status"
+    t.text "current_text"
   end
 
 end
