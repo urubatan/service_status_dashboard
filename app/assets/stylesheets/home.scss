@@ -1,0 +1,33 @@
+.home {
+    #main {
+        margin: 0;
+        padding: 0;
+        .service {
+            display: inline-block;
+            border: 1px solid black;
+            margin: 10px 10px 10px 10px;
+            padding: 5px 5px 5px 5px;
+            width: 200px;
+            float: left;
+            &.success {
+                background-color: green;
+            }
+            &.error {
+                background-color: red;
+            }
+            .name {
+                font-weight: bold;
+            }
+            .failure {
+                background-color: white;
+                color: red;
+                height: 36px;
+            }
+            .success {
+                background-color: white;
+                color: blue;
+                height: 36px;
+            }
+        }
+    }
+}

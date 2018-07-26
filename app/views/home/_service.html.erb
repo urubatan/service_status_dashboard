@@ -1,0 +1,5 @@
+<div class="service <%= service.current_status ? 'success' : 'error' %>">
+<div class="name"><%= service.name %></div>
+<div class="failure">Last failed: <%= service.last_failed %></div>
+<div class="success">Last succeeded: <%= service.last_succeeded %></div>
+</div>
