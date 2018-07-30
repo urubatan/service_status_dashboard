@@ -1,0 +1,9 @@
+<h1><%= @service.name %> failed at <%= @service.last_failed %></h1>
+
+<% if @service.last_succeeded%>
+<p>Last success: <%=@service.last_succeeded %></p>
+<% end %>
+<b>Status message</b>
+<pre>
+  <%= @service.current_text %>
+</pre>

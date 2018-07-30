@@ -7,7 +7,6 @@ class Service < ApplicationRecord
   validates :name,:address, :check_type, presence: true
   validates :check_script, presence: true, unless: -> { self.http_status? } 
 
-
   def execute
     begin
       uri = URI(self.address)
@@ -30,15 +29,33 @@ class Service < ApplicationRecord
           false
         end
       end
-      self.current_status = result==true
+      new_status = result==true
+      self.last_notification_time = nil if self.current_status != new_status
+      self.current_status = new_status
       self.current_text = result ? '' : res.body
     rescue => e
+      self.last_notification_time = nil if self.current_status
       self.current_status = false
       self.current_text = e
     end
     self.save
     self.save_history
+    self.send_notification_if_needed
     self.current_status
+  end
+
+  def send_notification_if_needed
+    if self.last_notification_time.nil?
+      if self.current_status && self.service_histories.count != 1
+        ServiceStatusMailer.recovered(self.id).deliver_later
+        self.update_attribute(:last_notification_time, Time.now)
+        self.service_histories.order('created_at desc').first.update_attribute(:notification_sent, true)
+      elsif !self.current_status
+        ServiceStatusMailer.failed(self.id).deliver_later
+        self.update_attribute(:last_notification_time, Time.now)
+        self.service_histories.order('created_at desc').first.update_attribute(:notification_sent, true)
+      end
+    end
   end
 
   def save_history
@@ -48,10 +65,14 @@ class Service < ApplicationRecord
   end
 
   def last_failed
-    self.service_histories.order('created_at asc').where('status = ?', false).first.try(:created_at) || 'Never'
+    self.service_histories.order('created_at desc').where('status = ?', false).first.try(:created_at) || 'Never'
+  end
+
+  def last_failed_text
+    self.service_histories.order('created_at desc').where('status = ?', false).first.try(:status_text)
   end
 
   def last_succeeded
-    self.service_histories.order('created_at asc').where('status = ?', true).first.try(:created_at) || 'Never'
+    self.service_histories.order('created_at desc').where('status = ?', true).first.try(:created_at) || 'Never'
   end
 end

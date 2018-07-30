@@ -50,3 +50,6 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'pry'
+gem 'sidekiq'
+gem 'sidekiq-status'
+gem 'sidekiq-cron'

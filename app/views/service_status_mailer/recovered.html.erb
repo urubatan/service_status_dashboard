@@ -1,0 +1,11 @@
+<h1><%= @service.name%> recovered</h1>
+
+<% if @service.last_failed%>
+<p>Last failed status: <%=@service.last_failed %></p>
+<% end %>
+<% unless  @service.current_text.blank? %>
+<b>Status message</b>
+<pre>
+  <%= @service.current_text %>
+</pre>
+<% end %>

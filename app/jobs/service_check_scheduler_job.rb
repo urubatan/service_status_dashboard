@@ -3,7 +3,7 @@ class ServiceCheckSchedulerJob < ApplicationJob
 
   def perform(*args)
     Service.all.ids.each do |id|
-      ServiceCheck.perform_async(id)
+      ServiceCheckJob.perform_later(id)
     end
   end
 end
