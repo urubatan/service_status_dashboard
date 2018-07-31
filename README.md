@@ -20,4 +20,4 @@ And since it uses Sidekiq it requires redis to run
 
 This is the very first version I've built in my machine, and is not in production yet
 
-I know it has no tests, I know it is ugly, I'll fix it, sorry for that
+Ok, now it has tests, it is not TDD, but it is enough to play :D

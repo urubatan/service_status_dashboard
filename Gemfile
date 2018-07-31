@@ -53,3 +53,10 @@ gem 'pry'
 gem 'sidekiq'
 gem 'sidekiq-status'
 gem 'sidekiq-cron'
+
+group :test do
+  gem 'simplecov', require: false
+  gem 'webmock'
+end
+
+gem 'hirb'
