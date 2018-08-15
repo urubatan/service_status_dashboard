@@ -55,7 +55,7 @@ class Service < ApplicationRecord
         self.update_attribute(:last_notification_time, Time.now)
         self.service_histories.order('created_at desc').first.update_attribute(:notification_sent, true)
       end
-    end
+    end   
   end
 
   def save_history

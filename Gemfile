@@ -60,3 +60,4 @@ group :test do
 end
 
 gem 'hirb'
+gem 'rails_db'
