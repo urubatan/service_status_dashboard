@@ -3,4 +3,4 @@ rvm:
   - 2.5.0
 
 script:
-  - rails test
+  - bundle exec rails test
